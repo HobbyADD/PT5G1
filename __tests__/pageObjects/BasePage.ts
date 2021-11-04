@@ -1,12 +1,20 @@
-import { By, until, WebDriver, WebElement } from "selenium-webdriver";
+import { By, Builder, Capabilities, until, WebDriver, WebElement } from "selenium-webdriver";
 const chromedriver = require("chromedriver");
 
 export class BasePage {
     driver: WebDriver;
     url: string;
 
-    constructor(driver, url) {
-        this.driver = driver
+    constructor(url: string, driver?: WebDriver) {
+        
+        if(driver == undefined) {
+            this.driver = new Builder()
+            .withCapabilities(Capabilities.chrome())
+            .build();
+        }
+        else
+            this.driver = driver;
+            
         this.url = url
     }
 
