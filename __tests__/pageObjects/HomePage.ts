@@ -11,9 +11,8 @@ export class HomePage extends BasePage {
     covidInfo :By = By.css('#task-covid-19-hub');
     patientVisitor :By = By.css('#task-patient-visitor');
     
-    constructor(options){
-        super(options);
-        this.url="https://www.mayoclinic.org/"
+    constructor(){
+        super("https://www.mayoclinic.org/");
     }
     async clickReqAppt (){
         await this.click(this.requestAppt);
