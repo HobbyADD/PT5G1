@@ -60,14 +60,14 @@ import {
             default:
             resultLocator = this.drName
         }
-        var resultListLocation: Array<string> = [];
+        var resultListValue: Array<string> = [];
         let list = await this.getElements(this.resultsList);
         for (let i = 0; i < list.length; i++) {
 
-            let location = await list[i].findElement(resultLocator)
-          await resultListLocation.push(await location.getText());
+            let value = await list[i].findElement(resultLocator)
+          await resultListValue.push(await value.getText());
         }
-        return resultListLocation;
+        return resultListValue;
     }
     //this method uses the getText function to retreive the result header
     //that includes the term that was searched and number of results
