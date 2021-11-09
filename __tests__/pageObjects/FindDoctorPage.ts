@@ -35,16 +35,30 @@ import {
     async clickSearchBtn() {
         await this.click(this.searchBtn);
     }
-    //To use this method you must input a value. For the location drop down
-    // the values are: "Rochester, MN", "Jacksonville, FL", "Phoenix/Scottsdale, AZ"
+   /**
+     * This method selects a value from the location drop down list
+     * to filter the search results.
+     * @param value - This must be written exactly as the location
+     * buttons are displayed on the website. 
+     * Within the context of our testing the following
+     * strings are valid values: "Rochester, MN", "Phoenix/Scottsdale, AZ",
+     * and "Jacksonville, FL"
+     */
     async locationBarDDL(value: string) {
         await this.selectDDLByValue(this.locationBar, value);
     }
     async clickReturnToSearch() {
         await this.click(this.returnToSearchBtn);
     }
-    //When using this method you must input a result term option. Once the option is
-    //placed into the method it will return the corresponding text
+    /**
+     * This method returns information from the search results.
+     * @param resultTerm within the context of our testing the following
+     * string values are the inputs for resultTerm: "location", 
+     * "specialty", and default
+     * @returns a text string with the corresponding information for a specified
+     * "location" returns text for the doctor's location, "specialty" returns text
+     * for the doctor's specialty, "default" returns text for the doctor's name
+     */
     async getSearchResults(resultTerm: string) : Promise<string[]> {
         let resultLocator : By
         switch (resultTerm){
@@ -69,8 +83,11 @@ import {
         }
         return resultListValue;
     }
-    //this method uses the getText function to retreive the result header
-    //that includes the term that was searched and number of results
+    /**
+     * The method uses the getText function on the results page 
+     * @returns : the search header 
+     * The search header tells us what term was searched and how many results are populated.
+     */
     async getResultsHeader() : Promise<string> {
         return await this.getText(this.resultsHeader);
     }
