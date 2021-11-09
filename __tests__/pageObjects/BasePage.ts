@@ -5,6 +5,11 @@ export class BasePage {
     driver: WebDriver;
     url: string;
 
+    /**
+     * constructor for BasePage which sets the initial values for the class properties
+     * @param {string} url - the url of the child class  
+     * @param {WebDriver} driver - an optional parameter which can be set by the child class or set to chrome WebDriver by default
+     */
     constructor(url: string, driver?: WebDriver) {
         
         if(driver == undefined) {
@@ -18,6 +23,10 @@ export class BasePage {
         this.url = url
     }
 
+    /**
+     * navigates to the url passed in a parameter but if no url is passed in, the url set in the constructor is used
+     * @param {string} url - the url to navigate to 
+     */
     async navigate(url?: string): Promise<void> {
         if (url) return await this.driver.get(url);
         else if (this.url) return await this.driver.get(this.url);
@@ -37,6 +46,17 @@ export class BasePage {
         await this.driver.wait(until.elementIsVisible(element));
         return element;
     }
+
+    /**
+     * waits for the identified elements to be located before returning an array of WebElements.
+     * @param {By} elementBy - the locator for the elements to return.
+     */
+    async getElements(elementBy: By): Promise<WebElement[]> {
+        await this.driver.wait(until.elementLocated(elementBy));
+        let elements = await this.driver.findElements(elementBy);
+        return elements;
+    }
+
     /**
      * clicks the given element after waiting for it
      * @param {By} elementBy - the locator for the element to click
@@ -67,5 +87,21 @@ export class BasePage {
         let element = await this.getElement(elementBy);
         await this.driver.wait(until.elementIsEnabled(element));
         return element.getText();
+    }
+
+    /**
+     * selects a drop down list option based on the text of that option
+     * @param {By} elementBy - the locator for the drop down list element 
+     * @param textToSelect - the text of the option to select from the drop down list
+     */
+    async selectDDLByValue(elementBy: By, textToSelect: string): Promise<void>{
+        let options = await this.getElements(elementBy);
+        
+        for(let i=0; i<options.length; i++){
+            if(await options[i].getText() == textToSelect){
+                await options[i].click();
+                break;
+            }
+        }
     }
 }
