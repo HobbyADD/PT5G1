@@ -28,17 +28,24 @@ import {
     constructor() {
       super("https://www.mayoclinic.org/appointments/find-a-doctor");
     }
-   /**
+    /**
      * This method navigates to additional result pages that populate from our search
      * @param searchTerm - This string contains the term that was searched in the search bar.
-     * @param locations - This string contains the location filter that was applied. It 
+     * @param locations - - This string contains the location filter that was applied. It 
      * should be noted that this will be formatted as follows: Rochester, MN = "Rochester%2C%20MN"
      * Jacksonville, FL = "Jacksonville%2C%20FL", and Phoenix/Scottsdale, AZ = "Phoenix%2C%20AZ"
      * @param pageNumber - This value will be the number corresponding with the results page
      * you wish to navigate to
      */
-      async dynamicNavigate(searchTerm: string, locations: string, pageNumber: number) {
-        await this.driver.get(`https://www.mayoclinic.org/appointments/find-a-doctor/search-results?searchterm=${searchTerm}&locations=${locations}&page=${pageNumber}#edd114075cc94f35b9bccc081668c123`)
+     async dynamicNavigate(searchTerm: string, locations: string, pageNumber: number) {
+        let url: string = "https://www.mayoclinic.org/appointments/find-a-doctor/search-results?searchterm=" +
+        searchTerm +
+        "&locations=" +
+        locations +
+        "&page=" +
+        pageNumber +
+        "#edd114075cc94f35b9bccc081668c123";
+        await this.navigate(url)
     }
     async searchTerm(searchText: string) {
         await this.setInput(this.searchTermBar, searchText);
