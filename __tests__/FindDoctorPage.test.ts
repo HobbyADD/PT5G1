@@ -1,4 +1,6 @@
 import { FindDoctorPage } from "./pageObjects/FindDoctorPage";
+import conditionsData from "./data/conditionsData.json";
+import {mispelledData} from "./data/mispelledData.json"
 
 describe("Find a Doctor", () => {
 const page = new FindDoctorPage;
