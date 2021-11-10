@@ -28,8 +28,10 @@ export class BasePage {
      * @param {string} url - the url to navigate to 
      */
     async navigate(url?: string): Promise<void> {
-        if (url) return await this.driver.get(url);
-        else if (this.url) return await this.driver.get(this.url);
+        if (url) 
+            return await this.driver.get(url);
+        else if (this.url) 
+            return await this.driver.get(this.url);
         else
           return Promise.reject(
             "BasePage.navigate() needs a URL defined on the page object, or one passed in. No URL was provided."
@@ -90,8 +92,8 @@ export class BasePage {
     }
 
     /**
-     * selects a drop down list option based on the text of that option
-     * @param {By} elementBy - the locator for the drop down list element 
+     * selects a drop down list option from a list of options based on the text of that option
+     * @param {By} elementBy - the locator of the list of drop down list options
      * @param textToSelect - the text of the option to select from the drop down list
      */
     async selectDDLByValue(elementBy: By, textToSelect: string): Promise<void>{
