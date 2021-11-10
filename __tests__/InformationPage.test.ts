@@ -1,7 +1,4 @@
-import { Builder, Capabilities, By, WebDriver } from "selenium-webdriver";
-import { Driver } from "selenium-webdriver/chrome";
-import { urlIs } from "selenium-webdriver/lib/until";
-import { getParsedCommandLineOfConfigFile, WatchDirectoryFlags } from "typescript";
+
 import { HomePage } from "./pageObjects/HomePage";
 
 //this is opening the browser to the home page and going to the home page before an async is executed
@@ -9,7 +6,7 @@ import { HomePage } from "./pageObjects/HomePage";
 describe("Information Page Navigation", () => {
     const page = new HomePage();
     beforeEach(async () => {
-      await page.navigate("https://www.mayoclinic.org/");
+      await page.navigate();
     });
     afterAll(async () => {
         await page.driver.quit();
@@ -17,7 +14,7 @@ describe("Information Page Navigation", () => {
     
 
 //This tests the Patient and visitor guide page opened
-test("Patient and Visitor Guide page opened", async () => {
+test("Verify Patient and Visitor Guide page load - Jira PT5G1-3", async () => {
     
     //this is clicking on the link to the Patient Visitor page
     await page.clickPatientVisitor();
@@ -29,7 +26,7 @@ test("Patient and Visitor Guide page opened", async () => {
     })
 
 //This tests the Contact Us page opened
-test("Contact Us page opened", async () => {
+test("Verify Contact Us page load - Jira PT5G1-4", async () => {
     
     //this is clicking on the link to the Contact Us page
     await page.clickContactUs();
@@ -41,7 +38,7 @@ test("Contact Us page opened", async () => {
     })
 
 //This tests the COVID 19 page opened
-test("COVID 19 Info page opened", async () => {
+test("Verify COVID-19 vaccine & information page load - Jira PT5G1-5", async () => {
 
     //this is clicking on the link to the COVID 19 page
     await page.clickCovidInfo();
