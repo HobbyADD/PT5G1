@@ -7,6 +7,7 @@ import { NewAppointmentsPage } from "./NewAppointmentsPage";
 
 export class AppointmentsPage extends BasePage {
 
+    appointmentsPageHdr: By = By.xpath('//h1[text()="Tell us about your needs."]');
     requestAppointmentBtn: By = By.css('button[class="button desktop-only"]');
     noCOVIDVaccineAptBtn: By = By.xpath('//a[text()="No"]');
     yesCOVIDVaccineAptBtn: By = By.xpath('//a[text()="Yes"]');
@@ -33,6 +34,11 @@ export class AppointmentsPage extends BasePage {
 
     async clickYesBtn(){
         await this.click(this.yesCOVIDVaccineAptBtn);
+    }
+
+    async isAppointmentsPage(): Promise<boolean> {
+        let element = this.getElement(this.appointmentsPageHdr);
+        return element != null;
     }
 
     async isCOVIDVaccinePage(): Promise<boolean> {
