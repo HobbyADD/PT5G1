@@ -23,7 +23,6 @@ const page = new FindDoctorPage;
        await page.clickSearchBtn();
        let searchHeader = await page.getResultsHeader();
        expect(searchHeader).toContain(searchText);
-       console.log(searchHeader);
      });
     });
 /** This test uses a forEach loop to individually search 5 procedures that 
@@ -35,7 +34,6 @@ const page = new FindDoctorPage;
        await page.clickSearchBtn();
        let searchHeader = await page.getResultsHeader();
        expect(searchHeader).toContain(searchText);
-       console.log(searchHeader);
      });
     });
  /** This test uses a forEach loop to individually search the 5 common 
@@ -47,8 +45,6 @@ const page = new FindDoctorPage;
        await page.clickSearchBtn();
        let searchHeader = await page.getResultsHeader();
        expect(searchHeader).toContain(searchText);
-       let resultListName = await page.getSearchResults("default");
-       console.log(resultListName[0]);
      });
     });
  /** This test uses a forEach loop to individually utilize the three different
@@ -59,7 +55,7 @@ const page = new FindDoctorPage;
         await page.locationBarDDL(value);
         await page.clickSearchBtn();
         let resultListLocation = await page.getSearchResults("location");
-        console.log(resultListLocation[0]);
+        expect(resultListLocation).toContain(value);
        });  
     });
   /** This test uses a forEach loop to individually search the 5 commonly
@@ -72,7 +68,6 @@ const page = new FindDoctorPage;
        let searchHeader = await page.getResultsHeader();
        expect(searchHeader).toContain(searchText);
        expect(searchHeader).toContain("No results for");
-       console.log(searchHeader);
       });
     });
 /** This test ensures that using more specific search terms narrows the search results.
@@ -81,14 +76,12 @@ const page = new FindDoctorPage;
       await page.searchTerm("cardiology");
       await page.clickSearchBtn();
       let searchHeader = await page.getResultsHeader();
-      expect(searchHeader).toContain("cardiology");
-      console.log(searchHeader);
+      expect(searchHeader).toContain("\"cardiology\": Displaying 1-10 out of 140 doctors available");
       await page.clickReturntoSearchBtn();
       await page.searchTerm("pediatric cardiology");
       await page.clickSearchBtn();
       let searchHeader2 = await page.getResultsHeader();
-      expect(searchHeader2).toContain("pediatric cardiology");
-      console.log(searchHeader2);
+      expect(searchHeader2).toContain("\"pediatric cardiology\": Displaying 1-10 out of 17 doctors available");
     });
   /**
    * This test ensures that generalizing your search term broadens your results.
@@ -97,14 +90,12 @@ const page = new FindDoctorPage;
       await page.searchTerm("pediatric cardiology");
       await page.clickSearchBtn();
       let searchHeader = await page.getResultsHeader();
-      expect(searchHeader).toContain("pediatric cardiology");
-      console.log(searchHeader);
+      expect(searchHeader).toContain("\"pediatric cardiology\": Displaying 1-10 out of 17 doctors available");
       await page.clickReturntoSearchBtn();
       await page.searchTerm("cardiology");
       await page.clickSearchBtn();
       let searchHeader2 = await page.getResultsHeader();
-      expect(searchHeader2).toContain("cardiology");
-      console.log(searchHeader2);
+      expect(searchHeader2).toContain("\"cardiology\": Displaying 1-10 out of 140 doctors available");
     });
   /** This test utilizes both a search term and location filter to 
    * complete a search on the Find A Doctor page.
@@ -117,6 +108,5 @@ const page = new FindDoctorPage;
       expect(searchHeader).toContain("cardiology");
       let resultListLocation = await page.getSearchResults("location");
       expect(resultListLocation).toContain("Rochester, MN");
-      console.log(resultListLocation[0]);
     });      
 });
