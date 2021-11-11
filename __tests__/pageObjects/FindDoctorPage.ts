@@ -22,8 +22,6 @@ import {
     
     //results page navigation buttons
     returnToSearchBtn: By = By.className("menu-bioback");
-    // this object is clickable, but jest times out before the test will click it
-    nextPageBtn: By = By.xpath("//a[@id='pagination-next.pagination-item.control']");
 
     constructor() {
       super("https://www.mayoclinic.org/appointments/find-a-doctor");
@@ -117,12 +115,6 @@ import {
      */
     async getResultsHeader() : Promise<string> {
         return await this.getText(this.resultsHeader);
-    }
-    // jest always times out on this function, 
-    //potentially because it is interacting with a new page
-    //may need a different class to use this
-    async clickNextPageBtn() {
-        await this.click(this.nextPageBtn);
     }
     async clickReturntoSearchBtn() {
         await this.click(this.returnToSearchBtn);
