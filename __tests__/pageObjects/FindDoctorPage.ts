@@ -22,8 +22,6 @@ import {
     
     //results page navigation buttons
     returnToSearchBtn: By = By.className("menu-bioback");
-    // this object is clickable, but jest times out before the test will click it
-    nextPageBtn: By = By.xpath("//a[@id='pagination-next.pagination-item.control']");
 
     constructor() {
       super("https://www.mayoclinic.org/appointments/find-a-doctor");
@@ -59,11 +57,20 @@ import {
      * @param value - This must be written exactly as the location
      * buttons are displayed on the website. 
      * Within the context of our testing the following
-     * strings are valid values: "Rochester, MN", "Phoenix/Scottsdale, AZ",
+     * strings are valid values: "Rochester, MN", "Phoenix, AZ",
      * and "Jacksonville, FL"
+     * Please note that optionToSelect has been added to this method because
+     * the exact text on the location drop down list is "Phoenix/Scottsdale, AZ".
+     * However, the doctor profiles that result from the search have "Phoenix, AZ"
+     * as a location value. 
      */
     async locationBarDDL(value: string) {
-        await this.selectDDLByValue(this.locationBar, value);
+        var optionToSelect: string;
+        if (value == "Phoenix, AZ")
+            optionToSelect = "Phoenix/Scottsdale, AZ";
+        else 
+            optionToSelect = value;
+        await this.selectDDLByValue(this.locationBar, optionToSelect);
     }
     async clickReturnToSearch() {
         await this.click(this.returnToSearchBtn);
@@ -108,12 +115,6 @@ import {
      */
     async getResultsHeader() : Promise<string> {
         return await this.getText(this.resultsHeader);
-    }
-    // jest always times out on this function, 
-    //potentially because it is interacting with a new page
-    //may need a different class to use this
-    async clickNextPageBtn() {
-        await this.click(this.nextPageBtn);
     }
     async clickReturntoSearchBtn() {
         await this.click(this.returnToSearchBtn);
